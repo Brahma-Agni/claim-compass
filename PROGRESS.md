@@ -28,4 +28,4 @@ Commit after every class. Tag every Friday: `git tag week-N && git push origin w
 ## Daily log
 | Date | What I did today | Commit |
 |---|---|---|
-| 2026-10-23 | Verified four IRDAI sources, recorded 197 pages and checksums, added cited questions and text samples, and fixed Python 3.12 test discovery. | `week-1` |
+| 2026-10-23 | Verified four IRDAI sources, recorded 197 pages and checksums, added cited questions and text samples, added reproducible data tools, documented IRDAI's robots.txt restriction, and fixed Python 3.12 test discovery. | `week-1` |
