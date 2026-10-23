@@ -2,7 +2,7 @@ Claim-Compass
 
 IRDAI health insurance rules assistant with cost-aware AI model routing
 
-Day 1 status: Project definition and planning. Implementation and dataset collection are in progress.
+Week 1 status: project definition, API health check, cited questions, and the first verified regulatory corpus are complete.
 
 Problem
 Health insurance claims executives at hospitals and third-party administrators (TPAs) must answer frequent questions about cashless authorisation, waiting periods, claim rejections, and policyholder rights. Finding the applicable rule in lengthy IRDAI regulations, master circulars, and guidelines takes time, and outdated or incorrect interpretations can affect claim handling. Using a powerful AI model for every query is costly, while using only a cheaper model can produce unreliable answers in complex or high-risk cases. ClaimCompass aims to provide source-grounded answers quickly by routing straightforward questions to a low-cost model and escalating sensitive or difficult questions to a stronger model or human reviewer.
@@ -14,11 +14,13 @@ Cost-aware model routing with a live INR cost meter: ClaimCompass chooses a low-
 Hardest problem (my interview story)
 The hardest challenge is reducing inference cost without compromising accuracy on important insurance questions. A simple question about a standard timeline may be handled by a fast, inexpensive model, but rejection, dispute, and exception-related questions require careful reasoning and sometimes human escalation. I will build and evaluate a lightweight question router, measure answer quality and cost against a strong-model-only baseline, and tune the routing threshold. The target is at least 60% lower average model cost per query with less than a 2-percentage-point drop in answer accuracy. High-risk outputs, including appeal drafts, will require senior officer approval before release.
 Dataset
-The knowledge base will use official IRDAI regulations, health insurance master circulars, guidelines, and policyholder-protection materials. The minimum target is 800+ source-document pages. Document and page counts will be updated after files are collected and verified; these are not yet completed dataset figures.
-Source	Link	Documents	Pages	Licence / terms
-IRDAI regulations	https://irdai.gov.in/regulations	TBD	TBD	Official public regulatory documents; verify website terms and any reuse restrictions before redistribution
-IRDAI health insurance circulars and guidelines	https://irdai.gov.in/	TBD	TBD	Verify the terms for each downloaded document
-Total (target)	—	TBD	800+ target	—
+The first corpus contains four verified IRDAI regulations and master circulars totalling 197 pages. The project target remains 800+ pages after the initial extraction and citation pipeline is validated.
+
+| Source | Link | Documents | Pages | Licence / terms |
+|---|---|---:|---:|---|
+| IRDAI regulations | https://irdai.gov.in/consolidated-gazette-notified-regulations | 2 | 71 | Accurate reproduction with source acknowledgement under IRDAI's website policy |
+| IRDAI master circulars | https://irdai.gov.in/circulars | 2 | 126 | Accurate reproduction with source acknowledgement under IRDAI's website policy |
+| Current verified total | - | 4 | 197 | See `DATASET.md` and `data/manifest.csv` |
 
 
 For each downloaded document, record its title, URL, publication/effective date, amendment or supersession status, page count, and local filename. See [DATASET.md](DATASET.md) for dataset tracking.
@@ -41,12 +43,11 @@ python -m venv .venv
 source .venv/bin/activate   # Windows: .venv\Scripts\activate
 pip install -r requirements-dev.txt
 
-# After an .env.example file has been added:
 cp .env.example .env        # Windows: copy .env.example .env
 
-# After the FastAPI app entry point is implemented:
 uvicorn app.main:app --reload
 curl http://localhost:8000/health
-Day 1 note: These are the intended development commands. The app entry point, environment template, and health endpoint must exist before the full run sequence will work. Do not commit API keys or .env files.
+
+Do not commit API keys or `.env` files.
 Live link
 Not deployed yet — planned for Week 2.
